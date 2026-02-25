@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realm of Feelings - Notes & Reflections</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Realm of Feelings - Notes & Reflections">
+  <meta property="og:description"
+    content="Kumpulan catatan relatable tentang cinta, jarak, sepi, dan perjalanan menerima diri sendiri.">
+  <meta property="og:image" content="https://realmoffeelings.netlify.app/vite.svg">
+  <meta property="og:url" content="https://realmoffeelings.netlify.app/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Realm of Feelings">
+  <meta name="twitter:description"
+    content="Kumpulan catatan relatable tentang cinta, jarak, sepi, dan perjalanan menerima diri sendiri.">
+  <meta name="twitter:image" content="https://realmoffeelings.netlify.app/vite.svg">
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <i class="fa-solid fa-feather-pointed preloader-icon"></i>
+    <div class="preloader-text">Diving into feelings...</div>
+  </div>
+
+  <div id="app">
+    <!-- Custom Cursor -->
+    <div id="customCursorDot" class="custom-cursor-dot"></div>
+    <div id="customCursorRing" class="custom-cursor-ring"></div>
+
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    <canvas id="constellationCanvas"
+      style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
+
+    <header class="glass-header">
+      <div class="header-container">
+        <div class="logo">
+          <i class="fa-solid fa-feather-pointed"></i>
+          <h1>Realm of Feelings</h1>
+        </div>
+        <div class="search-container">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Search title, topic, or word...">
+        </div>
+        <div class="lang-toggle">
+          <button id="langEn" class="lang-btn active">EN</button>
+          <button id="langId" class="lang-btn">ID</button>
+        </div>
+        <div class="controls-container">
+          <button id="themeToggle" class="control-btn" title="Change Theme"><i class="fa-solid fa-moon"></i></button>
+
+          <div class="audio-control-wrapper">
+            <button id="rainToggle" class="control-btn" title="Toggle Rain"><i
+                class="fa-solid fa-cloud-rain"></i></button>
+            <input type="range" id="rainVolume" class="volume-slider" min="0" max="1" step="0.05" value="0.5"
+              title="Rain Volume">
+          </div>
+
+          <div class="audio-control-wrapper">
+            <button id="audioToggle" class="control-btn" title="Toggle Music"><i class="fa-solid fa-music"></i></button>
+            <input type="range" id="bgMusicVolume" class="volume-slider" min="0" max="1" step="0.05" value="0.4"
+              title="Music Volume">
+          </div>
+
+          <button id="zenToggle" class="control-btn" title="Zen Mode"><i class="fa-solid fa-eye-slash"></i></button>
+        </div>
+      </div>
+      <nav class="genres-nav" id="genresNav">
+        <button class="genre-btn active" data-genre="all">All</button>
+        <button class="genre-btn" data-genre="saved" id="btnSaved"><i class="fa-solid fa-bookmark"></i> Saved</button>
+        <button class="genre-btn" data-genre="catatanku" id="btnCatatanku"><i class="fa-solid fa-pen"></i> My
+          Echoes</button>
+        <button class="genre-btn" data-genre="secret" id="btnSecret" style="display: none;"><i
+            class="fa-solid fa-user-secret"></i> Secret</button>
+        <button class="genre-btn" data-genre="hubungan">Relationships</button>
+        <button class="genre-btn" data-genre="kehidupan">Life</button>
+        <button class="genre-btn" data-genre="dirisendiri">Self</button>
+        <button class="genre-btn" data-genre="malamhari">Late Night</button>
+        <button class="genre-btn" data-genre="kesepian">Loneliness</button>
+        <button class="genre-btn" data-genre="masalalu">Past</button>
+        <button class="genre-btn" data-genre="kenyataan">Reality</button>
+        <button class="genre-btn" data-genre="keluarga">Family</button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <h2 id="heroTitle">Diving into the Meaning Behind Feelings</h2>
+        <p id="heroDesc">A collection of relatable reflections on love, distance, loneliness, and the journey of
+          self-acceptance.</p>
+        <button id="btnRandom" class="random-btn">
+          <i class="fa-solid fa-dice-d20"></i> <span id="randomText">Read Me Something</span>
+        </button>
+        <button id="btnLetGo" class="random-btn" style="margin-left: 1rem; border-color: var(--secondary);">
+          <i class="fa-solid fa-fire"></i> <span id="letGoBtnText">Let Go</span>
+        </button>
+        <button id="btnBottle" class="random-btn" style="margin-left: 1rem; border-color: #5588e2;">
+          <i class="fa-solid fa-bottle-water"></i> <span id="bottleBtnText">Message in a Bottle</span>
+        </button>
+      </div>
+
+      <div id="highlightSection" class="highlight-section" style="display: none;">
+        <h3 class="section-title fade-in"><i class="fa-solid fa-fire-flame-curved"></i> <span
+            id="highlightTitleText">Sorotan Hari Ini</span></h3>
+        <div id="highlightCardPlaceholder"></div>
+      </div>
+
+      <div id="poemsGrid" class="poems-grid">
+        <!-- Dynamically injected -->
+      </div>
+    </main>
+
+    <!-- Floating Mood Check-in -->
+    <div class="side-widgets-container"
+      style="position: fixed; bottom: 2rem; right: 2rem; display: flex; flex-direction: column; gap: 1rem; z-index: 100;">
+      <button class="mood-widget-btn" id="btnBreatheMode" title="Take a deep breath"
+        style="background: rgba(85, 136, 226, 0.2); border-color: #5588e2; color: #aaccff;">
+        <i class="fa-solid fa-lungs"></i>
+      </button>
+      <div class="mood-widget-container" style="position: relative; right: 0; bottom: 0;">
+        <button class="mood-widget-btn" id="moodWidgetBtn" title="How are you feeling?">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </button>
+        <div class="mood-widget-panel" id="moodWidgetPanel">
+          <p id="moodWidgetTitle">Apa yang sedang memberatkan pikiranmu?</p>
+          <div class="mood-options">
+            <button class="mood-btn" data-mood="sedih">😢 Sedih/Kosong</button>
+            <button class="mood-btn" data-mood="lelah">😫 Lelah Kehidupan</button>
+            <button class="mood-btn" data-mood="overthinking">🌪️ Overthinking</button>
+            <button class="mood-btn" data-mood="hancur">💔 Hancur</button>
+            <button class="mood-btn" data-mood="sepi">👻 Kesepian</button>
+          </div>
+          <button id="btnViewYearbook" class="random-btn"
+            style="width: 100%; margin-top: 1rem; justify-content: center; font-size: 0.9rem; border-radius: 8px;">
+            <i class="fa-regular fa-calendar-days"></i> <span id="yearbookBtnText">Lihat Kalender Emosi</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contemplation Stats UI -->
+    <div id="statsUI" class="stats-ui" style="display: none;">
+      <div><i class="fa-solid fa-hourglass-half"></i> <span id="statTimeLabel">Time spent:</span> <strong
+          id="statTimeVal">0m</strong></div>
+      <div><i class="fa-solid fa-book-open"></i> <span id="statReadLabel">Stories:</span> <strong
+          id="statReadVal">0</strong></div>
+    </div>
+
+    <div id="poemModal" class="modal">
+      <div class="modal-content glass-panel">
+        <div class="reading-progress-container">
+          <div class="reading-progress-bar" id="readingProgressBar"></div>
+        </div>
+        <span class="close-btn" title="Close">&times;</span>
+        <span id="fontToggle" class="font-toggle-btn" title="Change Text Size">Aa</span>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p id="footerText">&copy; 2026 Realm of Feelings.</p>
+      <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+        <button class="submit-story-btn" id="writeNoteBtn"
+          style="background: transparent; border: 1px solid var(--glass-border); color: var(--text-muted); border-radius: 2rem; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+          <i class="fa-solid fa-pen-nib"></i> <span id="writeNoteBtnText">Write a Note</span>
+        </button>
+        <button class="submit-story-btn" id="backupNotesBtn"
+          style="background: rgba(85, 136, 226, 0.1); border: 1px dashed #5588e2; color: #aaccff; border-radius: 2rem; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+          <i class="fa-solid fa-download"></i> <span id="backupNotesText">Backup Notes</span>
+        </button>
+        <a href="mailto:contact@realmoffeelings.xyz" class="submit-story-btn" id="submitStoryBtn"
+          style="border: 1px solid var(--accent); padding: 0.5rem 1rem; border-radius: 2rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+          <i class="fa-regular fa-envelope"></i> <span id="submitStoryText">Submit Your Story</span>
+        </a>
+      </div>
+    </footer>
+
+    <!-- Hidden Export Frame for Image Generation -->
+    <div id="exportFrame" class="export-frame">
+      <div class="export-logo"><i class="fa-solid fa-feather-pointed"></i> Realm of Feelings</div>
+      <div class="export-body">
+        <h2 id="exportTitle"></h2>
+        <div id="exportAuthor"></div>
+        <div id="exportContent"></div>
+      </div>
+    </div>
+
+    <!-- Let Go Modal -->
+    <div id="letGoModal" class="modal" style="position: relative;">
+      <canvas id="ashCanvas"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;"></canvas>
+      <div class="modal-content glass-panel"
+        style="text-align: center; max-width: 500px; position: relative; z-index: 20;">
+        <span class="close-btn" id="closeLetGo" title="Close">&times;</span>
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 1rem;" id="letGoTitle">
+          The Letting Go Room</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;" id="letGoDesc">Write down what weighs heavy on your
+          heart. Regrets, anger, or a name. When you are ready, let it go.</p>
+        <textarea id="letGoInput" placeholder="Type here..."
+          style="width: 100%; height: 150px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--text-main); padding: 1rem; border-radius: 10px; resize: none; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem; outline: none;"></textarea>
+        <button id="btnBurn" class="random-btn"
+          style="width: 100%; justify-content: center; background: rgba(226, 85, 85, 0.1); border-color: #e25555; color: #ff9999;">
+          <i class="fa-solid fa-fire-flame-curved"></i> <span id="burnText">Release & Burn</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Write Note Modal -->
+    <div id="writeNoteModal" class="modal">
+      <div class="modal-content glass-panel" style="max-width: 600px;">
+        <span class="close-btn" id="closeWriteNote" title="Close">&times;</span>
+        <h2
+          style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 1rem; text-align: center;"
+          id="writeNoteModalTitle">My Private Note</h2>
+        <input type="text" id="noteTitleInput" placeholder="Note Title..."
+          style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.8rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-family: 'Outfit', sans-serif; outline: none;">
+        <div
+          style="display: flex; gap: 10px; margin-bottom: 1rem; align-items: center; background: rgba(0,0,0,0.2); border: 1px dashed var(--glass-border); padding: 0.8rem 1rem; border-radius: 10px;">
+          <i class="fa-solid fa-lock" style="color: var(--text-muted);" title="Time Capsule Lock"></i>
+          <label for="noteUnlockDate" style="color: var(--text-muted); font-size: 0.9rem;" id="timeCapsuleLabel">Time
+            Capsule (Gembok hingga):</label>
+          <input type="date" id="noteUnlockDate"
+            style="background: transparent; border: none; color: var(--text-main); font-family: 'Outfit', sans-serif; outline: none; flex-grow: 1;">
+        </div>
+        <textarea id="noteContentInput" placeholder="Pour your heart out here..."
+          style="width: 100%; height: 250px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--text-main); padding: 1rem; border-radius: 10px; resize: none; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem; outline: none;"></textarea>
+        <button id="btnSaveNote" class="random-btn" style="width: 100%; justify-content: center; margin-bottom: 1rem;">
+          <i class="fa-solid fa-check"></i> <span id="saveNoteText">Save to My Echoes</span>
+        </button>
+        <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; line-height: 1.4;"
+          id="noteDisclaimer">
+          <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent);"></i>
+          Tulisan ini murni disimpan di perangkatmu saja. Jika kamu menghapus data browser, catatan ini akan hilang.
+        </p>
+      </div>
+    </div>
+
+    <!-- Message in a Bottle Modal -->
+    <div id="bottleModal" class="modal">
+      <div class="modal-content glass-panel" style="text-align: center; max-width: 500px;">
+        <span class="close-btn" id="closeBottle" title="Close">&times;</span>
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 1rem;" id="bottleTitle">
+          Message in a Bottle</h2>
+        <div id="replyBottleBox"
+          style="margin-bottom: 1.5rem; padding: 1rem; border: 1px dashed var(--glass-border); border-radius: 10px; display: none;">
+          <p style="font-family: 'Playfair Display', serif; color: var(--text-main); font-style: italic; margin-bottom: 0.5rem;"
+            id="replyBottleText"></p>
+          <small style="color: var(--text-muted);" id="replyBottleSender">- A Stranger from the sea</small>
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;" id="bottleDesc">Throw your thoughts into the sea, and
+          maybe you'll find a message from someone else.</p>
+        <textarea id="bottleInput" placeholder="Type a short message..."
+          style="width: 100%; height: 100px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--text-main); padding: 1rem; border-radius: 10px; resize: none; font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem; outline: none;"></textarea>
+        <button id="btnThrowBottle" class="random-btn"
+          style="width: 100%; justify-content: center; background: rgba(85, 136, 226, 0.1); border-color: #5588e2; color: #aaccff;">
+          <i class="fa-solid fa-water"></i> <span id="throwBottleText">Throw Bottle</span>
+        </button>
+      </div>
+    </div>
+    <!-- Breathing Guide Overlay -->
+    <div id="breatheOverlay" class="breathe-overlay">
+      <button id="closeBreatheBtn" class="close-btn"
+        style="position: absolute; top: 2rem; right: 2rem;">&times;</button>
+      <div class="breathe-circle" id="breatheCircle">
+        <div class="breathe-text" id="breatheTextInner">Tarik...</div>
+      </div>
+    </div>
+
+    <!-- Mood Yearbook Modal -->
+    <div id="yearbookModal" class="modal">
+      <div class="modal-content glass-panel" style="max-width: 500px; text-align: center;">
+        <span class="close-btn" id="closeYearbook" title="Close">&times;</span>
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 0.5rem;"
+          id="yearbookTitle">Kalender Emosi</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;" id="yearbookDesc">Riwayat
+          perasaanmu dalam sebulan terakhir.</p>
+        <div id="heatmapGrid" class="heatmap-grid"
+          style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; justify-items: center;">
+          <!-- JS gen -->
+        </div>
+      </div>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+      <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="rainMusic" loop preload="auto">
+      <source src="https://assets.mixkit.co/sfx/preview/mixkit-light-rain-loop-2393.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
