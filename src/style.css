@@ -1757,3 +1757,13 @@ body.zen-mode .glass-header {
     text-shadow: 0 -15px 30px #e25555;
   }
 }
+
+/* Hide custom cursor on mobile / touch devices */
+@media (max-width: 768px),
+(pointer: coarse) {
+
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
